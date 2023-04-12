@@ -54,12 +54,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnMpesa.setOnClickListener {
-            val simToolKitintent = applicationContext.packageManager.getLaunchIntentForPackage("com.android.STK")
+            val simToolKitintent = applicationContext.packageManager.getLaunchIntentForPackage("com.android.stk")
             simToolKitintent?.let { startActivity(it) }
         }
 
         btnCall.setOnClickListener {
-            val intent = Intent(Intent.ACTION_CALL, Uri.parse())
+            val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "0792715825"))
             if (ContextCompat.checkSelfPermission(
                     this@MainActivity,
                     android.Manifest.permission.CALL_PHONE
@@ -67,14 +67,22 @@ class MainActivity : AppCompatActivity() {
          ){
                 ActivityCompat.requestPermissions(
                     this@MainActivity,
-                    arrayOf(android.Manifest.permission.CALL_PHONE, )
+                    arrayOf<String>(android.Manifest.permission.CALL_PHONE),
+                    1
                 )
-            }else{ContextCompat.checkSelfPermission(
-                this@MainActivity,
-                android.Manifest.permission.CALL_PHONE
-            )!= PackageManager.PERMISSION_DENIED)
+            }else{
+                startActivity(intent)
+            //    ContextCompat.checkSelfPermission(
+//                this@MainActivity,
+//                android.Manifest.permission.CALL_PHONE
+//            )!= PackageManager.PERMISSION_DENIED)
 
             }
+        }
+
+        btnWebsite.setOnClickListener {
+            val gotowebsite = Intent(this@MainActivity, WebsiteActivity::class.java)
+            startActivity(gotowebsite)
         }
     }
 }
